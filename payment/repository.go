@@ -3,6 +3,8 @@ package payment
 import (
 	"context"
 	"database/sql"
+
+	_ "github.com/lib/pq"
 )
 
 type Repository interface {
@@ -16,7 +18,7 @@ type postGresRepository struct {
 }
 
 func NewPostgresRepository(url string) (Repository, error) {
-	db, err := sql.Open("postgresql", url)
+	db, err := sql.Open("postgres", url)
 
 	if err != nil {
 		return nil, err
