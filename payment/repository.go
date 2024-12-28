@@ -52,8 +52,7 @@ func (r *postGresRepository) PutPayment(ctx context.Context, p *Payment) error {
 	return nil
 }
 
-func (r *postGresRepository) ListPayments(ctx context.Context, skip, take uint64) ([]*Payment, error)
-(ctx context.Context, skip, take uint64) ([]*Payment, error) {
+func (r *postGresRepository) ListPayments(ctx context.Context, skip, take uint64) ([]*Payment, error) {
 	rows, err := r.db.QueryContext(ctx, "SELECT id, order_id,status, amount from payments offset $1 limit $2", skip, take)
 
 	if err != nil {
