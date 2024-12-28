@@ -1,0 +1,77 @@
+syntax = "proto3";
+option go_package = "./";
+package pb;
+
+message Product {
+    string Name = 1;
+    string Id = 2;
+    string Description = 3;
+    double price = 4;
+}
+
+message GetProductRequest {
+    string id =1;
+}
+
+message GetProductResponse {
+    Product product = 1;
+}
+
+message PostProductRequest {
+    string Name = 1;
+    string Description =2;
+    double Price = 3;
+}
+
+message PostProductResponse {
+    Product product = 1;
+}
+
+message GetProductsRequest {
+    uint64 Skip = 1;
+    uint64 Take = 2;
+}
+
+message GetProductsResponse {
+    repeated Product product = 1;
+}
+
+message GetProductsByIdsRequest {
+    repeated string ids = 1;
+}
+
+message GetProductsByIdsResponse {
+    repeated Product product = 1;
+}
+
+message SearchProductsRequest {
+    string query = 1;
+    uint64 skip = 2;
+    uint64 take = 3;
+}
+
+message SearchProductsResponse {
+    repeated Product product = 1;
+}
+
+service ProductService {
+    rpc PostProduct(PostProductRequest) returns (PostProductResponse){
+
+    }
+
+    rpc GetProduct(GetProductRequest) returns (GetProductResponse) {
+
+    }
+
+    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {
+
+    }
+
+    rpc GetProductsByIds(GetProductsByIdsRequest) returns (GetProductsByIdsResponse) {
+
+    }
+
+    rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse) {
+
+    }
+}
