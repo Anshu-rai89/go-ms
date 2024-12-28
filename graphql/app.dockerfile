@@ -14,7 +14,9 @@ RUN go mod download
 COPY account account
 COPY catalog catalog
 COPY order order
+COPY payment payment
 COPY graphql graphql
+
 RUN go build -o /go/bin/app ./graphql
 
 # Step 2: Runtime stage
