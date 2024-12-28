@@ -12,18 +12,17 @@ type AppConfig struct {
 	AccountURL string `envconfig:"ACCOUNT_SERVICE_URL"`
 	CatalogURL string `envconfig:"CATALOG_SERVICE_URL"`
 	OrderURL   string `envconfig:"ORDER_SERVICE_URL"`
+	PaymentURL string `envconfig:"PAYMENT_SERVICE_URL"`
 }
 
 func main() {
 	var config AppConfig
 	err := envconfig.Process("", &config)
-
-	log.Println("values", config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	s, err := NewGraphQLServer(config.AccountURL, config.CatalogURL, config.OrderURL)
+	s, err := NewGraphQLServer(config.AccountURL, config.CatalogURL, config.OrderURL, config.PaymentURL)
 
 	if err != nil {
 		log.Fatal(err)

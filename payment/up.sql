@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS payments (
+  id CHAR(27) PRIMARY KEY,
+  order_id CHAR(27) NOT NULL,
+  status VARCHAR(27) NOT NULL,
+  amount FLOAT NOT NULL
+);

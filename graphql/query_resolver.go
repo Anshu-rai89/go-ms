@@ -93,6 +93,38 @@ func (r *queryResolver) Products(ctx context.Context, pagination *PaginationInpu
 	return products, nil
 }
 
+func (r *queryResolver) Payments(ctx context.Context, pagination *PaginationInput, id *string) ([]*Payment, error) {
+	ctx, cancel := context.WithTimeout(ctx, time.Second*3)
+
+	defer cancel()
+
+	skip, take := uint64(0), uint64(0)
+	if pagination != nil {
+		skip, take = pagination.bounds()
+	}
+
+	paymentList, err := r.server.paymentClient.GetPayments(ctx, skip, take)
+
+	if err != nil {
+		return nil, err
+	}
+
+	paments := []*Payment{}
+
+	for _, p := range paymentList {
+		p1 := &Payment{
+			ID:      p.ID,
+			OrderID: p.OrderID,
+			Status:  p.Status,
+			Amount:  p.Amount,
+		}
+
+		paments = append(paments, p1)
+	}
+
+	return paments, nil
+}
+
 func (p PaginationInput) bounds() (uint64, uint64) {
 	skipValue := uint64(0)
 	takeValue := uint64(100)

@@ -20,6 +20,13 @@ type Order {
     products: [OrderedProduct!]!
 }
 
+type Payment {
+    id: String!
+    orderId: String!
+    status: String!
+    amount: Float!
+}
+
 type OrderedProduct {
     id: String!
     description: String!
@@ -53,13 +60,21 @@ input OrderInput {
     products: [OrderProductInput!]!
 }
 
+input PaymentInput {
+    orderId: String!
+    status: String!
+    amount: Float!
+}
+
 type Mutation {
     createAccount(account: AccountInput!): Account
     createProduct(product: ProductInput!): Product
     createOrder(order: OrderInput!): Order
+    createPayment(payment: PaymentInput!): Payment
 }
 
 type Query {
     accounts(pagination: PaginationInput, id: String) : [Account!]
     products(pagination: PaginationInput, id:String) : [Product!]
+    payments(pagination: PaginationInput, id: String) : [Payment!]
 }

@@ -43,6 +43,19 @@ type PaginationInput struct {
 	Take *int `json:"take,omitempty"`
 }
 
+type Payment struct {
+	ID      string  `json:"id"`
+	OrderID string  `json:"orderId"`
+	Status  string  `json:"status"`
+	Amount  float64 `json:"amount"`
+}
+
+type PaymentInput struct {
+	OrderID string  `json:"orderId"`
+	Status  string  `json:"status"`
+	Amount  float64 `json:"amount"`
+}
+
 type Product struct {
 	ID          string  `json:"id"`
 	Name        string  `json:"name"`

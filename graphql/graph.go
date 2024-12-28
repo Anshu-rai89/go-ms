@@ -5,15 +5,17 @@ import (
 	"github.com/Anshu-rai89/go-ms/account"
 	"github.com/Anshu-rai89/go-ms/catalog"
 	"github.com/Anshu-rai89/go-ms/order"
+	"github.com/Anshu-rai89/go-ms/payment"
 )
 
 type Server struct {
 	accountClient *account.Client
 	catalogClient *catalog.Client
 	orderClient   *order.Client
+	paymentClient *payment.Client
 }
 
-func NewGraphQLServer(accountUrl, catalogUrl, orderUrl string) (*Server, error) {
+func NewGraphQLServer(accountUrl, catalogUrl, orderUrl, paymentUrl string) (*Server, error) {
 	accountClient, err := account.NewClient(accountUrl)
 
 	if err != nil {
@@ -33,10 +35,16 @@ func NewGraphQLServer(accountUrl, catalogUrl, orderUrl string) (*Server, error) 
 		return nil, err
 	}
 
+	paymentClient, err := payment.NewClient(paymentUrl)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Server{
 		accountClient,
 		catalogClient,
 		orderClient,
+		paymentClient,
 	}, nil
 }
 

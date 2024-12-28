@@ -1,0 +1,35 @@
+syntax = "proto3";
+option go_package = "./";
+package pb;
+
+message Payment {
+    string Id = 1;
+    string OrderId = 2;
+    string Status = 3;
+    double amount = 4;
+}
+
+message PostPaymentRequest {
+    string orderId = 1;
+    double amount = 2;
+    string status = 3;
+}
+
+message PostPaymentResponse {
+    Payment payment = 1;
+}
+
+message GetPaymentsRequest {
+    uint64 skip = 1;
+    uint64 take = 2;
+}
+
+message GetPaymentsResponse {
+    repeated Payment payment = 1;
+}
+
+service paymentService {
+    rpc PostPayment(PostPaymentRequest) returns (PostPaymentResponse){}
+    rpc GetPayments(GetPaymentsRequest) returns (GetPaymentsResponse){}
+}
+

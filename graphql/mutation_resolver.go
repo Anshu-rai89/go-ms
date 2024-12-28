@@ -77,3 +77,17 @@ func (r *mutationResolver) CreateOrder(ctx context.Context, in OrderInput) (*Ord
 		TotalPrice: o.TotalPrice,
 	}, nil
 }
+
+func (r *mutationResolver) CreatePayment(ctx context.Context, in PaymentInput) (*Payment, error) {
+	ctx, cancel := context.WithTimeout(ctx, time.Second*3)
+
+	defer cancel()
+
+	p, err := r.server.paymentClient.PostPayment(ctx, in.OrderID, in.Status, in.Amount)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &Payment{ID: p.ID, OrderID: p.OrderID, Status: p.Status, Amount: p.Amount}, nil
+}
